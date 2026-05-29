@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZÉLL-V Wellness Hub | Wellness Assessment & Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #B89A6A;
+      --gold-light:  #D4BA8E;
+      --gold-pale:   #F7F1E8;
+      --cream:       #FAF8F5;
+      --dark:        #1A1714;
+      --mid:         #4A4540;
+      --muted:       #8A8480;
+      --white:       #FFFFFF;
+      --border:      rgba(184,154,106,0.25);
+      --radius:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      line-height: 1.2;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Utility ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #A08555; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+    }
+    .btn-outline:hover { background: var(--gold-pale); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--dark);
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mid);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta { font-size: 13px; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1A1714 0%, #2E2822 55%, #3A3228 100%);
+    }
+
+    .hero-bg-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(184,154,106,0.15);
+    }
+    .hero-circle-1 { width: 600px; height: 600px; top: -200px; right: -150px; }
+    .hero-circle-2 { width: 900px; height: 900px; top: -350px; right: -300px; }
+    .hero-circle-3 { width: 400px; height: 400px; bottom: -180px; left: -120px; }
+
+    .hero-line {
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, rgba(184,154,106,0.2), transparent);
+      width: 1px;
+    }
+    .hero-line-1 { height: 100%; left: 20%; top: 0; }
+    .hero-line-2 { height: 100%; left: 80%; top: 0; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 80px 0;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(184,154,106,0.15);
+      border: 1px solid rgba(184,154,106,0.3);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin-bottom: 40px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(184,154,106,0.2);
+      flex-wrap: wrap;
+    }
+
+    .stat-item { }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── About / Intro ── */
+    #about {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .about-tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--gold-pale);
+      color: var(--gold);
+      padding: 5px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(184,154,106,0.3);
+    }
+
+    .about-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .about-title em { font-style: italic; color: var(--gold); }
+
+    .about-body {
+      color: var(--mid);
+      font-size: 16px;
+      margin-bottom: 28px;
+      line-height: 1.8;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-card-main {
+      background: linear-gradient(145deg, #1A1714, #2E2822);
+      border-radius: 20px;
+      padding: 40px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .about-card-main::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(184,154,106,0.2);
+    }
+
+    .about-card-main::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: rgba(184,154,106,0.07);
+    }
+
+    .about-icon-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(184,154,106,0.2);
+      border: 1px solid rgba(184,154,106,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .about-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-card-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-float-badge {
+      position: absolute;
+      bottom: -20px;
+      right: 20px;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(184,154,106,0.3);
+    }
+
+    .about-float-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    /* ── Benefits ── */
+    #benefits {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .benefits-header {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 64px;
+    }
+
+    .benefits-header h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .benefits-header h2 em { font-style: italic; color: var(--gold); }
+
+    .benefits-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(184,154,106,0.1);
+    }
+
+    .benefit-icon {
+      width: 52px; height: 52px;
+      background: var(--gold-pale);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .benefit-card h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .benefit-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── Services / Packages ── */
+    #packages {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .packages-header {
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+
+    .packages-header h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .packages-header h2 em { font-style: italic; color: var(--gold); }
+    .packages-header p { color: var(--muted); font-size: 15px; }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pkg-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease;
+    }
+    .pkg-card:hover { transform: translateY(-4px); }
+
+    .pkg-card.featured {
+      border-color: var(--gold);
+      position: relative;
+    }
+
+    .pkg-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .pkg-top {
+      padding: 28px;
+      background: var(--cream);
+    }
+
+    .pkg-card.featured .pkg-top {
+      background: linear-gradient(135deg, #1A1714, #2E2822);
+      color: var(--white);
+    }
+
+    .pkg-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .pkg-card.featured .pkg-name { color: var(--gold-light); }
+
+    .pkg-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .pkg-card.featured .pkg-desc { color: rgba(255,255,255,0.55); }
+
+    .pkg-body {
+      padding: 24px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pkg-list {
+      list-style: none;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .pkg-list li {
+      font-size: 14px;
+      color: var(--mid);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pkg-list li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 10px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .pkg-cta {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── Testimonials ── */
+    #testimonials {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #1A1714 0%, #2E2822 100%);
+    }
+
+    .testi-header {
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 56px;
+    }
+
+    .testi-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .testi-header h2 em { font-style: italic; color: var(--gold-light); }
+    .testi-header p { color: rgba(255,255,255,0.45); font-size: 14px; }
+
+    .testi-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; }
+
+    .testi-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--gold-light);
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .testi-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(184,154,106,0.2);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .testi-quote {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(184,154,106,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold-light);
+      flex-shrink: 0;
+    }
+
+    .testi-name { font-size: 13px; font-weight: 500; color: var(--white); }
+    .testi-meta { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    /* ── CTA Banner ── */
+    #cta-banner {
+      padding: 80px 0;
+      background: var(--gold-pale);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .cta-text h2 em { font-style: italic; color: var(--gold); }
+    .cta-text p { color: var(--muted); font-size: 15px; max-width: 420px; }
+
+    .cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* ── Enquiry / Contact Form ── */
+    #enquiry {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .enquiry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .enquiry-left h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .enquiry-left h2 em { font-style: italic; color: var(--gold); }
+
+    .enquiry-left p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--gold-pale);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .contact-detail-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-text span {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Form */
+    .enquiry-form {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+    }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,154,106,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8480' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      font-size: 15px;
+      letter-spacing: 0.03em;
+      margin-top: 8px;
+      border-radius: 12px;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Success message */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success.visible { display: block; }
+
+    .success-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .success-icon::before { content: '✓'; color: var(--gold); }
+
+    .form-success h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .form-success p { font-size: 14px; color: var(--muted); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.55);
+      padding: 48px 0 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy { font-size: 12px; }
+
+    .footer-address { font-size: 12px; text-align: right; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 68px;
+        left: 0; right: 0;
+        background: var(--cream);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px;
+        gap: 16px;
+        z-index: 99;
+      }
+
+      .nav-links.open + .nav-cta {
+        display: none;
+      }
+
+      .about-grid,
+      .enquiry-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .benefits-grid,
+      .packages-grid,
+      .testi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats { gap: 24px; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .cta-inner { flex-direction: column; text-align: center; }
+      .cta-actions { justify-content: center; }
+
+      .footer-inner,
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .footer-address { text-align: center; }
+
+      .about-float-badge {
+        position: relative;
+        bottom: auto; right: auto;
+        display: inline-block;
+        margin-top: 16px;
+      }
+
+      .enquiry-form { padding: 28px 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">ZÉLL<span>‑V</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#benefits">Benefits</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#enquiry">Contact</a></li>
+      </ul>
+      <a href="#enquiry" class="btn btn-primary nav-cta">Book Assessment</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-decor">
+      <div class="hero-circle hero-circle-1"></div>
+      <div class="hero-circle hero-circle-2"></div>
+      <div class="hero-circle hero-circle-3"></div>
+      <div class="hero-line hero-line-1"></div>
+      <div class="hero-line hero-line-2"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Kuala Lumpur's Holistic Wellness Centre</div>
+        <h1 class="hero-title">
+          Discover Your<br>
+          Path to <em>Optimal</em><br>
+          Wellbeing
+        </h1>
+        <p class="hero-sub">
+          Comprehensive wellness assessments, cellular health screening, and personalised treatment programmes — designed to restore, rejuvenate, and renew from within.
+        </p>
+        <div class="hero-actions">
+          <a href="#enquiry" class="btn btn-primary">Book Your Assessment</a>
+          <a href="#packages" class="btn btn-outline" style="color:#D4BA8E; border-color:rgba(212,186,142,0.5);">View Packages</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">4.7★</div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">107+</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Years of Expertise</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Wellness Services</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">About ZÉLL-V</p>
+          <div class="about-tag-row">
+            <span class="tag">Bio-Resonance</span>
+            <span class="tag">IV Therapy</span>
+            <span class="tag">Detox</span>
+            <span class="tag">Nutrition</span>
+          </div>
+          <h2 class="about-title">
+            Holistic Wellness,<br><em>Rooted in Science</em>
+          </h2>
+          <p class="about-body">
+            ZÉLL-V Wellness Hub is a premier wellness centre located in the heart of Kuala Lumpur, offering science-backed health assessments and integrative therapies. From live blood analysis to bio-resonance testing and IV vitamin infusions, we empower you with deep insight into your body's true health status.
+          </p>
+          <p class="about-body">
+            Our team of experienced wellness professionals crafts personalised programmes that address root causes — not just symptoms — helping you achieve lasting vitality and balance.
+          </p>
+          <a href="#packages" class="btn btn-primary">Explore Our Services</a>
+        </div>
+        <div class="about-visual">
+          <div class="about-card-main">
+            <div class="about-icon-row">
+              <div class="about-icon">🧬</div>
+              <div class="about-icon">💊</div>
+              <div class="about-icon">🌿</div>
+            </div>
+            <div class="about-card-title">Personalised Health<br>at a Cellular Level</div>
+            <div class="about-card-sub">Live blood analysis · Bio-resonance · IV nutrition</div>
+          </div>
+          <div class="about-float-badge">
+            <strong>4.7</strong>
+            Google Reviews
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <div class="container">
+      <div class="benefits-header">
+        <p class="section-label">Why Choose Us</p>
+        <h2>The ZÉLL-V <em>Difference</em></h2>
+        <p>We combine advanced diagnostic tools with compassionate, expert care to deliver a wellness experience unlike any other.</p>
+      </div>
+      <div class="benefits-grid">
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🔬</div>
+          <h3>Advanced Diagnostics</h3>
+          <p>Live blood cell analysis, bio-resonance testing, and comprehensive health screening panels give you a truly complete picture of your health.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🧪</div>
+          <h3>IV Vitamin Therapy</h3>
+          <p>Customised intravenous infusions deliver essential nutrients directly into your bloodstream for maximum absorption and rapid results.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🌿</div>
+          <h3>Detox & Gut Health</h3>
+          <p>Colon detox therapies and targeted cleansing programmes support digestive health, reduce toxin load, and restore gut microbiome balance.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🥗</div>
+          <h3>Personalised Nutrition</h3>
+          <p>Our nutritionists design meal and supplement plans based on your health screening results, lifestyle, and wellness goals.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">✨</div>
+          <h3>Holistic Care</h3>
+          <p>We treat the whole person — body, mind, and metabolic system — integrating multiple therapies into a seamless, restorative journey.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🏢</div>
+          <h3>Comfortable Facility</h3>
+          <p>Enjoy a clean, tranquil environment in our KL centre with parking provided, a dedicated health breakfast, and a warm, professional team.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="container">
+      <div class="packages-header">
+        <p class="section-label">Our Packages</p>
+        <h2>Assessment <em>Packages</em></h2>
+        <p>Choose the programme that best fits your health goals. All packages include a detailed consultation and personalised recommendations.</p>
+      </div>
+      <div class="packages-grid">
+
+        <div class="pkg-card">
+          <div class="pkg-top">
+            <div class="pkg-name">Essential Screening</div>
+            <div class="pkg-desc">A solid foundation for understanding your baseline health status.</div>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-list">
+              <li>Live Blood Cell Analysis</li>
+              <li>Basic Health Screening Panel</li>
+              <li>BMI & Body Composition Assessment</li>
+              <li>Nutritionist Consultation (30 min)</li>
+              <li>Personalised Health Report</li>
+            </ul>
+            <a href="#enquiry" class="btn btn-outline pkg-cta">Enquire Now</a>
+          </div>
+        </div>
+
+        <div class="pkg-card featured">
+          <div class="pkg-badge">Most Popular</div>
+          <div class="pkg-top">
+            <div class="pkg-name">Comprehensive Wellness</div>
+            <div class="pkg-desc">Our most complete assessment package with therapies included.</div>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-list">
+              <li>Live Blood Cell Analysis</li>
+              <li>Bio-Resonance Full Body Scan</li>
+              <li>Comprehensive Health Screening</li>
+              <li>IV Vitamin C Infusion (1 session)</li>
+              <li>Nutritionist Consultation (60 min)</li>
+              <li>Personalised Nutrition Plan</li>
+              <li>Healthy Breakfast &amp; Lunch Included</li>
+            </ul>
+            <a href="#enquiry" class="btn btn-primary pkg-cta">Book Now</a>
+          </div>
+        </div>
+
+        <div class="pkg-card">
+          <div class="pkg-top">
+            <div class="pkg-name">Detox &amp; Rejuvenate</div>
+            <div class="pkg-desc">Targeted detoxification and cellular renewal programme.</div>
+          </div>
+          <div class="pkg-body">
+            <ul class="pkg-list">
+              <li>Colon Detox Therapy</li>
+              <li>Bio-Resonance Toxin Assessment</li>
+              <li>IV Drip (customised formula)</li>
+              <li>Gut Health Consultation</li>
+              <li>30-Day Detox Meal Guide</li>
+            </ul>
+            <a href="#enquiry" class="btn btn-outline pkg-cta">Enquire Now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="testi-header">
+        <div class="testi-rating">
+          <span class="stars">★★★★★</span>
+          <span class="testi-score">4.7 / 5</span>
+        </div>
+        <h2>What Our <em>Clients</em> Say</h2>
+        <p>Real experiences from clients who've transformed their health with ZÉLL-V.</p>
+      </div>
+      <div class="testi-grid">
+
+        <div class="testi-card">
+          <p class="testi-quote">"Health assessment with treatment are the keys to maintain good health lifelong. My overall experience with Zéll-V's assessment was exceptionally positive — the detoxification results were remarkable."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">RT</div>
+            <div>
+              <div class="testi-name">Raymond T.</div>
+              <div class="testi-meta">Health Screening Client · ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <p class="testi-quote">"I came for live blood analysis and stayed for the comprehensive screening. Priced very decently, included a healthy breakfast and lunch — genuinely one of the best wellness experiences I've had."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SD</div>
+            <div>
+              <div class="testi-name">Sara D.</div>
+              <div class="testi-meta">Comprehensive Package · ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <p class="testi-quote">"The Bio-Resonance test was truly enlightening and the staff's expertise made my visit genuinely enjoyable. Highly recommended for anyone seeking real holistic wellbeing."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">AN</div>
+            <div>
+              <div class="testi-name">Antho N.</div>
+              <div class="testi-meta">Bio-Resonance · ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section id="cta-banner">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <p class="section-label">Ready to Begin?</p>
+          <h2>Start Your <em>Wellness</em> Journey Today</h2>
+          <p>Book a comprehensive wellness assessment and take the first step towards a healthier, more energetic you.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="#enquiry" class="btn btn-primary">Book Assessment</a>
+          <a href="tel:0126975533" class="btn btn-outline">Call Us Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRY FORM -->
+  <section id="enquiry">
+    <div class="container">
+      <div class="enquiry-grid">
+
+        <div class="enquiry-left">
+          <p class="section-label">Get In Touch</p>
+          <h2>Book Your <em>Assessment</em></h2>
+          <p>Fill in the form and our wellness team will reach out to confirm your appointment and answer any questions you may have.</p>
+
+          <div class="contact-detail">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail-text">
+              <strong>Phone / WhatsApp</strong>
+              <span>012-697 5533</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-detail-text">
+              <strong>Website</strong>
+              <span>www.zellvwellness.com</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-icon">📍</div>
+            <div class="contact-detail-text">
+              <strong>Address</strong>
+              <span>Menara Ruyi 30A, Lorong Kapar Jln 2/87G,<br>Off Jln Syed Putra, Taman Seputeh,<br>58000 Kuala Lumpur</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-icon">🕘</div>
+            <div class="contact-detail-text">
+              <strong>Operating Hours</strong>
+              <span>Monday – Saturday: 9:00 AM – 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="enquiry-form">
+          <div id="formContent">
+            <div class="form-title">Book an Appointment</div>
+            <div class="form-subtitle">We'll confirm within 1 business day.</div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" placeholder="e.g. Sarah" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" placeholder="e.g. Lim" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="sarah@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp *</label>
+              <input type="tel" id="phone" placeholder="e.g. 012-345 6789" required />
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service / Package of Interest</label>
+              <select id="service">
+                <option value="" disabled selected>Select a package…</option>
+                <option>Essential Screening</option>
+                <option>Comprehensive Wellness Package</option>
+                <option>Detox &amp; Rejuvenate Programme</option>
+                <option>IV Vitamin Therapy</option>
+                <option>Bio-Resonance Testing</option>
+                <option>Nutrition Consultation</option>
+                <option>Not sure — please advise me</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pref-date">Preferred Date</label>
+                <input type="date" id="pref-date" />
+              </div>
+              <div class="form-group">
+                <label for="pref-time">Preferred Time</label>
+                <select id="pref-time">
+                  <option value="" disabled selected>Select time…</option>
+                  <option>9:00 AM</option>
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Health Concerns / Additional Notes</label>
+              <textarea id="message" placeholder="Share any specific health concerns, conditions, or goals you'd like to address…"></textarea>
+            </div>
+
+            <button class="btn btn-primary form-submit" id="submitBtn" type="button" onclick="submitForm()">
+              Submit Enquiry →
+            </button>
+            <p class="form-note">🔒 Your information is kept strictly confidential.</p>
+          </div>
+
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon"></div>
+            <h3>Enquiry Received!</h3>
+            <p>Thank you for reaching out to ZÉLL-V Wellness Hub. Our team will contact you within 1 business day to confirm your appointment.</p>
+            <br>
+            <a href="tel:0126975533" class="btn btn-primary" style="margin: 0 auto; display: inline-block;">Call Us: 012-697 5533</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">ZÉLL<span>‑V</span> Wellness Hub</div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#enquiry">Book Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 ZÉLL-V Wellness Hub. All rights reserved.</div>
+        <div class="footer-address">Menara Ruyi 30A, Taman Seputeh, 58000 Kuala Lumpur · <a href="http://www.zellvwellness.com" style="color:var(--gold-light)">zellvwellness.com</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Smooth scroll offset for sticky nav
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Form submit simulation
+    function submitForm() {
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!fname || !email || !phone) {
+        alert('Please fill in your name, email, and phone number to continue.');
+        return;
+      }
+
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('visible');
+    }
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.benefit-card, .pkg-card, .testi-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
