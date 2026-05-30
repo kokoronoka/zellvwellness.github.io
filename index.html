@@ -1327,84 +1327,94 @@
         </div>
 
         <div class="enquiry-form">
-          <div id="formContent">
-            <div class="form-title">Book an Appointment</div>
-            <div class="form-subtitle">We'll confirm within 1 business day.</div>
+  <div id="formContent">
+    <div class="form-title">Book an Appointment</div>
+    <div class="form-subtitle">We'll confirm within 1 business day.</div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="fname">First Name *</label>
-                <input type="text" id="fname" placeholder="e.g. Sarah" required />
-              </div>
-              <div class="form-group">
-                <label for="lname">Last Name *</label>
-                <input type="text" id="lname" placeholder="e.g. Lim" required />
-              </div>
-            </div>
+    <form action="https://formspree.io/f/mredddqw" method="POST" id="enquiryForm">
 
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" placeholder="sarah@example.com" required />
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Phone / WhatsApp *</label>
-              <input type="tel" id="phone" placeholder="e.g. 012-345 6789" required />
-            </div>
-
-            <div class="form-group">
-              <label for="service">Service / Package of Interest</label>
-              <select id="service">
-                <option value="" disabled selected>Select a package…</option>
-                <option>Essential Screening</option>
-                <option>Comprehensive Wellness Package</option>
-                <option>Detox &amp; Rejuvenate Programme</option>
-                <option>IV Vitamin Therapy</option>
-                <option>Bio-Resonance Testing</option>
-                <option>Nutrition Consultation</option>
-                <option>Not sure — please advise me</option>
-              </select>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="pref-date">Preferred Date</label>
-                <input type="date" id="pref-date" />
-              </div>
-              <div class="form-group">
-                <label for="pref-time">Preferred Time</label>
-                <select id="pref-time">
-                  <option value="" disabled selected>Select time…</option>
-                  <option>9:00 AM</option>
-                  <option>10:00 AM</option>
-                  <option>11:00 AM</option>
-                  <option>12:00 PM</option>
-                  <option>2:00 PM</option>
-                  <option>3:00 PM</option>
-                  <option>4:00 PM</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="message">Health Concerns / Additional Notes</label>
-              <textarea id="message" placeholder="Share any specific health concerns, conditions, or goals you'd like to address…"></textarea>
-            </div>
-
-            <button class="btn btn-primary form-submit" id="submitBtn" type="button" onclick="submitForm()">
-              Submit Enquiry →
-            </button>
-            <p class="form-note">🔒 Your information is kept strictly confidential.</p>
-          </div>
-
-          <div class="form-success" id="formSuccess">
-            <div class="success-icon"></div>
-            <h3>Enquiry Received!</h3>
-            <p>Thank you for reaching out to ZÉLL-V Wellness Hub. Our team will contact you within 1 business day to confirm your appointment.</p>
-            <br>
-            <a href="tel:0126975533" class="btn btn-primary" style="margin: 0 auto; display: inline-block;">Call Us: 012-697 5533</a>
-          </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name *</label>
+          <input type="text" id="fname" name="first_name" placeholder="e.g. Sarah" required />
         </div>
+        <div class="form-group">
+          <label for="lname">Last Name *</label>
+          <input type="text" id="lname" name="last_name" placeholder="e.g. Lim" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="sarah@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone / WhatsApp *</label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. 012-345 6789" required />
+      </div>
+
+      <div class="form-group">
+        <label for="service">Service / Package of Interest</label>
+        <select id="service" name="service">
+          <option value="" disabled selected>Select a package…</option>
+          <option>Essential Screening</option>
+          <option>Comprehensive Wellness Package</option>
+          <option>Detox &amp; Rejuvenate Programme</option>
+          <option>IV Vitamin Therapy</option>
+          <option>Bio-Resonance Testing</option>
+          <option>Nutrition Consultation</option>
+          <option>Not sure — please advise me</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pref-date">Preferred Date</label>
+          <input type="date" id="pref-date" name="preferred_date" />
+        </div>
+        <div class="form-group">
+          <label for="pref-time">Preferred Time</label>
+          <select id="pref-time" name="preferred_time">
+            <option value="" disabled selected>Select time…</option>
+            <option>9:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>2:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:00 PM</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Health Concerns / Additional Notes</label>
+        <textarea id="message" name="message" placeholder="Share any specific health concerns, conditions, or goals you'd like to address…"></textarea>
+      </div>
+
+      <!-- Hidden spam protection field — do not remove -->
+      <input type="text" name="_gotcha" style="display:none" />
+
+      <!-- Redirect back to your page after submission (optional) -->
+      <!-- <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html" /> -->
+
+      <button type="submit" class="btn btn-primary form-submit">
+        Submit Enquiry →
+      </button>
+      <p class="form-note">🔒 Your information is kept strictly confidential.</p>
+
+    </form>
+  </div>
+
+  <div class="form-success" id="formSuccess">
+    <div class="success-icon"></div>
+    <h3>Enquiry Received!</h3>
+    <p>Thank you for reaching out to ZÉLL-V Wellness Hub. Our team will contact you within 1 business day to confirm your appointment.</p>
+    <br>
+    <a href="tel:0126975533" class="btn btn-primary" style="margin: 0 auto; display: inline-block;">Call Us: 012-697 5533</a>
+  </div>
+</div>
 
       </div>
     </div>
@@ -1456,19 +1466,7 @@
     });
 
     // Form submit simulation
-    function submitForm() {
-      const fname = document.getElementById('fname').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      if (!fname || !email || !phone) {
-        alert('Please fill in your name, email, and phone number to continue.');
-        return;
-      }
-
-      document.getElementById('formContent').style.display = 'none';
-      document.getElementById('formSuccess').classList.add('visible');
-    }
+    
 
     // Scroll reveal animation
     const observer = new IntersectionObserver((entries) => {
